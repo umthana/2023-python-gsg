@@ -9,7 +9,12 @@ consumer = KafkaConsumer(
 )
 consumer.subscribe("orders")
 
-for message in consumer:
-  topic_info = f"topic: {message.topic} ({message.partition}|{message.offset})"
-  message_info = f"key: {message.key}, {message.value}"
-  print(f"{topic_info}, {message_info}")
+try:
+    for message in consumer:
+        topic_info = f"topic: {message.partition}|{message.offset})"
+        message_info = f"key: {message.key}, {message.value}"
+        print(f"{topic_info}, {message_info}")
+except Exception as e:
+    print(f"Error occurred while consuming messages: {e}")
+finally:
+    consumer.close()
