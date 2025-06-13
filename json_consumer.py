@@ -10,7 +10,7 @@ consumer = KafkaConsumer(
   value_deserializer=lambda m: json.loads(m.decode('ascii'))
 )
 
-consumer.subscribe("orders")
+consumer.subscribe(["orders"])
 
 try:
     for message in consumer:

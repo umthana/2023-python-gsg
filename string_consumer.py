@@ -7,7 +7,7 @@ consumer = KafkaConsumer(
   enable_auto_commit=False,
   consumer_timeout_ms=1000
 )
-consumer.subscribe("orders")
+consumer.subscribe(["orders"])
 
 try:
     for message in consumer:
