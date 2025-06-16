@@ -1,6 +1,4 @@
-version: '3.7'
 services:
-  # Redpanda cluster
   redpanda-broker:
     image: redpandadata/redpanda:v25.1.4
     container_name: redpanda-broker
@@ -27,8 +25,19 @@ services:
       - --advertise-rpc-addr
       - redpanda-broker:33145
     ports:
-      # - 8081:8081
       - 8082:8082
       - 9092:9092
       - 28082:28082
       - 29092:29092
+
+  redpanda-console:
+    image: redpandadata/console:v3.1.1
+    container_name: redpanda-console
+    ports:
+      - 8080:8080
+    environment:
+      - KAFKA_BROKERS=redpanda-broker:29092
+      - SCHEMA_REGISTRY_URL=http://localhost:8081
+      - CONSOLE_BIND=0.0.0.0:8080
+    depends_on:
+      - redpanda-broker
